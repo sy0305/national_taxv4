@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>national_tax</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+ 
+
+ 	
+    <!-- 这个能放在springmvc配置文件中 这个映射到文件上传控制大小 -->
+  <!-- 指定Spring的配置文件 -->
+	<!-- 否则Spring会默认从WEB-INF下寻找配置文件,contextConfigLocation属性是Spring内部固定的 -->
+	<!-- 通过ContextLoaderListener的父类ContextLoader的第120行发现CONFIG_LOCATION_PARAM固定为contextConfigLocation -->
+<!-- 	此路径跟下面<init-param>中的路径一直   同样也是需要下载srpingdao,springservice,springweb还是数据库连接的位置文件 -->
+  	<context-param>
+
+        <param-name>contextConfigLocation</param-name>
+
+      <param-value>
+        classpath:spring/applicationContext-*.xml,
+
+        </param-value>
+    </context-param> 	
+  	<!-- 防止发生java.beans.Introspector内存泄露,应将它配置在ContextLoaderListener的前面 -->
+	<!-- 详细描述见http://blog.csdn.net/jadyer/article/details/11991457 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+    
+      <!-- 将springmvc配置文件交给web.xml -->
+  
+	<!-- 实例化Spring容器 -->
+	<!-- 应用启动时,该监听器被执行,它会读取Spring相关配置文件,其默认会到WEB-INF中查找applicationContext.xml -->
+	<!-- http://starscream.iteye.com/blog/1107036 -->
+	<!-- http://www.davenkin.me/post/2012-10-18/40039948363 -->
+	<!-- WebApplicationContextUtils.getWebApplicationContext() -->
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+       <!-- 配置Shiro过滤器,先让Shiro过滤系统接收到的请求 -->
+	<!-- 这里filter-name必须对应applicationContext.xml中定义的<bean id="shiroFilter"/> -->
+	<!-- 使用[/*]匹配所有请求,保证所有的可控请求都经过Shiro的过滤 -->
+	<!-- 通常会将此filter-mapping放置到最前面(即其他filter-mapping前面),以保证它是过滤器链中第一个起作用的 -->
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<!-- 该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理 -->
+			<param-name>targetFilterLifecycle</param-name>
+		<!-- 	设置为ture由servlet容器控制filter的声明周期 -->
+			<param-value>true</param-value>
+		</init-param>
+	<!-- 	设置sring容器filter的bean id ,如果不设置则找与filter-name一直的bean  如果设置 配置的名字是<param-value>里的名字-->
+<!-- 		<init-param>
+		<param-name>targetBeanName</param-name>
+		<param-value>shiroFilter</param-value>	
+		</init-param> -->
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		  <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+	</filter-mapping>       
+
+    <!-- 处理乱码的 -->
+<!-- 配置中文乱码问题 -->
+<!-- 解决乱码问题 -->
+	<!-- forceEncoding默认为false,此时效果可大致理解为request.setCharacterEncoding("UTF-8") -->
+	<!-- forceEncoding=true后,可大致理解为request.setCharacterEncoding("UTF-8")和response.setCharacterEncoding("UTF-8") -->
+
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <!-- 将编码改变成为utf-8 -->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <!-- 拦截所有文件变成中文 -->
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+
+	
+    <!-- 配置springmvc的核心控制类 -->
+     <!--配置DispatcherServlet -->
+    <servlet>
+        <servlet-name>springMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+   <init-param>
+     <!-- 配置SpringMVC 需要配置的文件 spring-dao.xml，spring-service.xml,spring-web.xml 
+            Mybites -> spring -> springMvc -->
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring/applicationContext-*.xml
+      </param-value>
+    </init-param>
+
+        <!-- 配置DispatcherServlet优先被启动值是1说明第一个被启动 -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springMVC</servlet-name>
+        <!-- mvc-dispatcher匹配所有的请求-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+
+
+    <!--解决PUT解析，但是总是仍然没有解决-->
+    <!-- <filter>
+        <filter-name>MultipartFilter</filter-name>
+        <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+        <init-param>
+            <param-name>multipartResolverBeanName</param-name>
+            <param-value>multipartResolver</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>MultipartFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping> -->
+
+
+    <!--这个过滤器会从请求参数中获取一些东西，因此过滤器会先执行，但是它不具备文件上传解析器的功能，根本就获取不到隐藏域中的参数
+    当这个过滤器执行完后才会解析这个动作
+
+    -->
+    <!--处理应射关系：_method=put   _method=delete-->
+  <!--   <filter>
+        <filter-name>hiddenHttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>hiddenHttpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping> -->
+
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jsp/system/common.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config>
+<!--     	<error-page>
+		<error-code>405</error-code>
+		<location>/WEB-INF/405.html</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/500.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/WEB-INF/500.jsp</location>
+	</error-page> -->
+<!-- Session超时30分钟(零或负数表示会话永不超时) -->
+	<!-- 
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	 -->
+
+
+</web-app>

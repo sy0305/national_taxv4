@@ -1,0 +1,319 @@
+body {
+	background-color: #f5f6f6;
+}
+
+/** 覆盖bootstrap样式 Start **/
+@media ( min-width :1400px) {
+	.container {
+		width: 1350px
+	}
+}
+
+.navbar .nav>li .dropdown-menu {
+	top: 60px;
+	left: 0;
+	right: auto;
+	min-width: 100px;
+	background: #0768C6;
+}
+
+.navbar .nav>li:hover .dropdown-menu {
+	display: block;
+}
+
+.navbar .nav>li .dropdown-menu>li {
+	height: 40px;
+}
+
+.navbar .nav>li .dropdown-menu>li>a {
+	color: #fff;
+	margin-left: 0;
+	line-height: 34px;
+}
+
+.navbar .nav>li .dropdown-menu>li>a:hover {
+	color: #59CAF4;
+	background: #0768C6;
+}
+
+.navbar-collapse.collapse.navbar-right>.navbar-nav>li>a {
+	color: #fff;
+	line-height: 30px;
+}
+
+.navbar .nav>.nav-user-logout {
+	display: none;
+}
+
+.navbar-collapse.collapse.navbar-right>.navbar-nav>li>a:focus,
+	.navbar-collapse.collapse.navbar-right>.navbar-nav>li>a:hover {
+	color: #ffffff;
+	background: transparent;
+}
+
+.navbar-collapse.collapse.navbar-right>.navbar-nav>.active>a,
+	.navbar-collapse.collapse.navbar-right>.navbar-nav>.active>a:focus,
+	.navbar-collapse.collapse.navbar-right>.navbar-nav>.active>a:hover {
+	color: #2eaff1;
+	background: transparent;
+}
+
+/** 覆盖bootstrap样式 End **/
+button.navbar-toggle {
+	margin-top: 13px;
+}
+
+button.navbar-toggle>span.icon-bar {
+	background-color: #dedede;
+}
+
+.icon-bar:before {
+	content: '' !important;
+}
+
+.navbar-header {
+	height: 60px !important;
+}
+
+.di-header {
+	background: #0768C6 none repeat scroll 0% 0%;
+	height: 60px;
+	color: #eee;
+	margin-bottom: 0px;
+	border: 0;
+}
+
+.di-header>.container>.navbar-header>img {
+	height: 20px;
+	width: 130px;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+ul.nav.navbar-nav>li>div.di-search {
+	width: 420px;
+	margin-top: 11px;
+	margin-right: 5px;
+}
+
+ul.nav.navbar-nav>li>div.di-search>input, ul.nav.navbar-nav>li>div.di-search>.input-group-addon
+	{
+	background: #85B3E2;
+	border: none;
+	height: 40px;
+}
+
+ul.nav.navbar-nav>li>div.di-search>input {
+	border-right: none;
+}
+
+ul.nav.navbar-nav>li>div.di-search>.input-group-addon {
+	border-left: none;
+}
+
+ul.nav.navbar-nav>li>div.di-search>.input-group-addon:HOVER {
+	cursor: pointer;
+}
+
+ul.nav.navbar-nav>li>div.di-search>input:FOCUS {
+	background: #fff;
+	border: none;
+}
+
+ul.nav.navbar-nav>li>div.di-search>input:FOCUS+div.input-group-addon {
+	background: #fff;
+	border: none;
+}
+
+ul.nav.navbar-nav>li i:hover {
+	color: #59CAF4;
+}
+
+@media ( max-width :767px) {
+	.navbar-collapse {
+		background: #192f49;
+	}
+	.navbar .nav>.nav-user-logout {
+		display: block !important;
+	}
+	.navbar .nav>.dropdown {
+		display: none !important;
+	}
+}
+
+@media ( max-width :991px) {
+	ul.nav.navbar-nav>li.di-search-li {
+		display: none;
+	}
+}
+
+@media ( min-width :992px) and (max-width:1199px) {
+	ul.nav.navbar-nav>li>div.di-search {
+		width: 250px !important;
+	}
+}
+
+.di-container {
+	min-height: 100%;
+	margin-top: 60px;
+}
+
+.di-container>.breadcrumb {
+	background: transparent;
+	margin: 20px 0;
+	padding: 0;
+	font-size: 14px;
+	color: #383f49;
+	line-height: 14px;
+	text-align: left;
+}
+
+.di-container>.breadcrumb>li, .di-container>.breadcrumb>li>a {
+	cursor: pointer;
+}
+
+.di-container>.breadcrumb>li.active>a:HOVER, .di-container>.breadcrumb>li>a:HOVER
+	{
+	text-decoration: none;
+}
+
+.di-container>.breadcrumb>li.active>a:HOVER, .di-container>.breadcrumb>li>a:FOCUS
+	{
+	text-decoration: none;
+}
+
+.di-container>.breadcrumb>li.active>a {
+	color: #777;
+	cursor: default;
+}
+
+.di-content {
+	background: #ffffff;
+	box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.20);
+	border-radius: 2px;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+@media ( max-width :1600px) {
+	.di-content {
+		min-height: 678px;
+	}
+}
+
+@media ( max-width :1440px) {
+	.di-content {
+		min-height: 678px;
+	}
+}
+
+.di-content-content {
+	display: none;
+	background: #fff;
+}
+
+.di-content-content.active {
+	display: block;
+}
+
+.di-content-content .row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+footer {
+	background: #6c6c6c none repeat scroll 0% 0%;
+	color: #fff;
+	display: block;
+	height: 66px;
+}
+
+footer .copyright span {
+	line-height: 66px;
+}
+
+.home-card-title {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.home-card-title:hover {
+	font-weight: bold;
+	cursor: pointer;
+	color: #2eaff1;
+	text-decoration: underline;
+}
+
+.show-my {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 0;
+	z-index: 1000;
+	width: 45px;
+}
+
+/*
+* 共享条件样式
+*/
+.public {
+	font-size: 12px;
+	color: #2eaff1;
+	line-height: 20px;
+	text-align: left;
+	border: 1px solid #2eaff1;
+	border-radius: 2px;
+	width: 40px;
+	height: 20px;
+	margin-left: 5px;
+	-webkit-text-size-adjust: none;
+}
+
+.protected {
+	font-size: 12px;
+	color: #29c8a3;
+	line-height: 20px;
+	text-align: left;
+	border: 1px solid #29c8a3;
+	border-radius: 2px;
+	width: 34px;
+	height: 20px;
+	margin-left: 5px;
+	-webkit-text-size-adjust: none;
+}
+
+.private {
+	border: 1px solid #f15f8c;
+	border-radius: 2px;
+	width: 34px;
+	height: 20px;
+	font-size: 12px;
+	color: #f15f8c;
+	line-height: 20px;
+	text-align: left;
+	margin-left: 5px;
+	-webkit-text-size-adjust: none;
+}
+
+.template-icon {
+	border: 1px solid #636C79;
+	border-radius: 2px;
+	width: 34px;
+	height: 20px;
+	font-size: 12px;
+	color: #636C79;
+	line-height: 20px;
+	text-align: left;
+	margin-left: 5px;
+	-webkit-text-size-adjust: none;
+}
+
+.min-width {
+	min-width: 1100px;
+	height: auto;
+}
+
+.overflow-x {
+	overflow-x: auto;
+	height: auto;
+}

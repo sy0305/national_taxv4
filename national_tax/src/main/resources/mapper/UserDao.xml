@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace命名空间 ，它的作用是对SQL进行分类化管理 -->
+<mapper namespace="com.camel.dao.bean.UserDao">
+<!--添加注册信息 -->
+<insert id="insert" parameterType="User">
+		insert into user(username,userpassword,passwordtwo,name,nationality,qq,id_card,email) 
+		values(#{username},#{userpassword},#{passwordtwo},#{name},#{nationality},#{qq},#{id_card},#{email})
+	</insert>
+	
+</mapper>
